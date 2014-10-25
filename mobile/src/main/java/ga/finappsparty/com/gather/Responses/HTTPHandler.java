@@ -1,5 +1,12 @@
 package ga.finappsparty.com.gather.Responses;
 
+import android.util.Log;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -11,14 +18,12 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
 
 /**
- * Created by kevinsotomayor on 25/10/14.
+ * Created by ulidev on 25/10/14.
  */
 public class HTTPHandler {
+
     static String response = null;
     public final static int GET = 1;
     public final static int POST = 2;
@@ -43,7 +48,7 @@ public class HTTPHandler {
      * @params - http request params
      * */
     public String makeServiceCall(String url, int method,
-                                  List<NameValuePair> params) {
+                                  ArrayList<NameValuePair> params) {
         try {
             // http client
             DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -56,8 +61,9 @@ public class HTTPHandler {
                 // adding post params
                 if (params != null) {
                     httpPost.setEntity(new UrlEncodedFormEntity(params));
-                }
 
+                }
+                Log.d("post" , url);
                 httpResponse = httpClient.execute(httpPost);
 
             } else if (method == GET) {
@@ -86,4 +92,5 @@ public class HTTPHandler {
         return response;
 
     }
+
 }
